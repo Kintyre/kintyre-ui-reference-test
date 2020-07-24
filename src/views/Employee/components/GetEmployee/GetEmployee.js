@@ -10,6 +10,7 @@ import {
   CardActions,
   CircularProgress,
   Divider,
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -20,12 +21,25 @@ import {
   TextField,
   Typography as MuiTypography
 } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 import useFetch from 'use-http';
 
-const useStyles = makeStyles((theme) => ({
-  root: {'& .MuiTextField-root': {
-    margin: theme.spacing(2),
-    width: 230,}
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(2),
+      width: 230
+    }
+  },
+  icon: {
+    height: 28,
+    width: 28,
+    marginTop: 4
+  },
+  tableFooter: {
+    marginLeft: 20
   }
 }));
 
@@ -38,7 +52,7 @@ const GetEmployee = props => {
     uid: '',
     department: '',
     info: null,
-    result: null
+    isRetrieved: false
   });
 
   const options = {
@@ -53,20 +67,20 @@ const GetEmployee = props => {
     setValues({
       ...values,
       info: null,
-      result: null,
+      isRetrieved: false,
       [event.target.name]: event.target.value
     });
   };
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const request = await get(`/employee/${values.uid}/department/${values.department}`)
+    const result = await get(`/employee/${values.uid}/department/${values.department}`)
     if (response.ok) {
-      if (request.Count === 0) {
-        setValues({ ...values, result: 'Not found!' });
+      if (result.Count === 0) {
+        setValues({ ...values, info: null, isRetrieved: true });
       }
-      if (request.Count === 1) {
-        setValues({ ...values, info: { ...request.Items[0].info }, result: 'Found!' })
+      if (result.Count === 1) {
+        setValues({ ...values, info: { ...result.Items[0].info }, isRetrieved: true })
       }
     }
   };
@@ -85,6 +99,7 @@ const GetEmployee = props => {
         <CardContent>
           <TextField
             fullWidth
+            helperText="Sort key"
             label="uid"
             name="uid"
             onChange={handleChange}
@@ -96,6 +111,7 @@ const GetEmployee = props => {
           />
           <TextField
             fullWidth
+            helperText="Partition key"
             label="department"
             name="department"
             onChange={handleChange}
@@ -105,57 +121,87 @@ const GetEmployee = props => {
             value={values.department}
             variant="outlined"
           />
-          {values.info &&
-          <div>
-            <Divider />
-            <TableContainer component={Paper}>
-              <Table
-                aria-label="simple table"
-                className={classes.table}
-              >
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Key</TableCell>
-                    <TableCell align="right">Value</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {Object.keys(values.info).map( (key, index) => {
-                    return(
-                      <TableRow key={`rowKey-${index}`}>
-                        <TableCell
-                          component="th"
-                          key={`cellKey-${index}`}
-                          scope="row"
-                        >
-                          {key}
-                        </TableCell>
-                        <TableCell align="right">{values.info[key]}</TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
+          {values.isRetrieved && 
+          values.info && 
+            <div>
+              <TableContainer component={Paper}>
+                <Table
+                  aria-label="simple table"
+                  className={classes.table}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Key</TableCell>
+                      <TableCell align="right">Value</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Object.keys(values.info).map((key, index) => {
+                      return (
+                        <TableRow key={`rowKey-${index}`}>
+                          <TableCell
+                            component="th"
+                            key={`cellKey-${index}`}
+                            scope="row"
+                          >
+                            {key}
+                          </TableCell>
+                          <TableCell align="right">
+                            {values.info[key]}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <MuiTypography
+                className={classes.tableFooter}
+                variant="caption"
+              >Recently updated records may be cached.</MuiTypography>
+            </div>
           }
         </CardContent>
         <Divider />
         <CardActions>
-          <Button
-            color="primary"
-            type="submit"
-            variant="outlined"
+          <Grid
+            container
+            justify="space-between"
           >
-            Submit
-          </Button>
-          {error && <MuiTypography variant="button">Error!</MuiTypography>}
-          {loading && 
-          <CircularProgress
-            color="secondary"
-            size={30}
-          />}
-          {values.result && <MuiTypography variant="button">{values.result}</MuiTypography>}
+            <Grid item>
+              <Button
+                color="primary"
+                type="submit"
+                variant="contained"
+              >
+                get
+              </Button>
+            </Grid>
+            <Grid item>
+              {error && 
+                <ErrorIcon
+                  className={classes.icon}
+                  color="error"
+                />}
+              {loading && 
+                <CircularProgress
+                  color="secondary"
+                  size={30}
+                />}
+              {values.isRetrieved && 
+                !values.info &&
+                <CancelIcon
+                  className={classes.icon}
+                  color="secondary"
+                />}
+              {values.isRetrieved && 
+              values.info && 
+                <CheckCircleIcon
+                  className={classes.icon}
+                  color="secondary"
+                />}
+            </Grid>
+          </Grid>
         </CardActions>
       </form>
     </Card>

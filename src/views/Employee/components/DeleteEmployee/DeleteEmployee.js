@@ -3,22 +3,29 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
+  Button,
   Card,
   CardHeader,
   CardContent,
   CardActions,
   CircularProgress,
   Divider,
-  Button,
-  TextField,
-  Typography as MuiTypography
+  Grid,
+  TextField
 } from '@material-ui/core';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 import useFetch from 'use-http';
 
 const useStyles = makeStyles((theme) => ({
   root: {'& .MuiTextField-root': {
     margin: theme.spacing(2),
     width: 230,}
+  },
+  icon: {
+    height: 28,
+    width: 28,
+    marginTop: 4
   }
 }));
 
@@ -107,20 +114,37 @@ const DeleteEmployee = props => {
           />
         </CardContent>
         <CardActions>
-          <Button
-            color="primary"
-            type="submit"
-            variant="outlined"
+          <Grid
+            container
+            justify="space-between"
           >
-            Submit
-          </Button>
-          {error && <MuiTypography variant="button">Error!</MuiTypography>}
-          {loading && 
-          <CircularProgress
-            color="secondary"
-            size={30}
-          />}
-          {values.isDeleted && <MuiTypography variant="button">Deleted!</MuiTypography>}
+            <Grid item>
+              <Button
+                color="primary"
+                type="submit"
+                variant="outlined"
+              >
+                delete
+              </Button>
+            </Grid>
+            <Grid item>
+              {error && 
+                <ErrorIcon
+                  className={classes.icon}
+                  color="error"
+                />}
+              {loading && 
+                <CircularProgress
+                  color="secondary"
+                  size={30}
+                />}
+              {values.isDeleted &&
+                <CheckCircleIcon
+                  className={classes.icon}
+                  color="secondary"
+                />}
+            </Grid>
+          </Grid>
         </CardActions>
       </form>
     </Card>

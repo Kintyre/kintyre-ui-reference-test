@@ -3,22 +3,29 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
+  Button,
   Card,
   CardHeader,
   CardContent,
   CardActions,
   CircularProgress,
   Divider,
-  Button,
-  TextField,
-  Typography as MuiTypography
+  Grid,
+  TextField
 } from '@material-ui/core';
+import ErrorIcon from '@material-ui/icons/Error';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import useFetch from 'use-http';
 
 const useStyles = makeStyles((theme) => ({
   root: {'& .MuiTextField-root': {
     margin: theme.spacing(2),
     width: 230,}
+  },
+  icon: {
+    height: 28,
+    width: 28,
+    marginTop: 4
   }
 }));
 
@@ -110,45 +117,67 @@ const SaveEmployee = props => {
             value={values.department}
             variant="outlined"
           />
-          <Divider />
-          <TextField
-            helperText="info"
-            id="outlined-required"
-            label="key"
-            name="infoKey"
-            onChange={handleChange}
-            required
-            size="small"
-            value={values.infoKey}
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-required"
-            label="value"
-            name="infoValue"
-            onChange={handleChange}
-            required
-            size="small"
-            value={values.infoValue}
-            variant="outlined"
-          />
+          {values.uid &&
+          values.department &&
+          <div>
+            <Divider />
+            <TextField
+              helperText="Info"
+              id="outlined-required"
+              label="key"
+              name="infoKey"
+              onChange={handleChange}
+              required
+              size="small"
+              value={values.infoKey}
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-required"
+              label="value"
+              name="infoValue"
+              onChange={handleChange}
+              required
+              size="small"
+              value={values.infoValue}
+              variant="outlined"
+            />
+          </div>
+          }
         </CardContent>
         <Divider />
         <CardActions>
-          <Button
-            color="primary"
-            type="submit"
-            variant="outlined"
+          <Grid
+            container
+            justify="space-between"
           >
-            Submit
-          </Button>
-          {error && <MuiTypography variant="button">Error!</MuiTypography>}
-          {loading && 
-          <CircularProgress
-            color="secondary"
-            size={30}
-          />}
-          {values.isAdded && <MuiTypography variant="button">Added!</MuiTypography>}
+            <Grid item>
+              <Button
+                color="primary"
+                type="submit"
+                variant="contained"
+              >
+                save
+              </Button>
+            </Grid>
+            <Grid item>
+              {error && 
+                <ErrorIcon
+                  className={classes.icon}
+                  color="secondary"
+                />}
+              {loading && 
+                <CircularProgress
+                  color="secondary"
+                  size={30}
+                />}
+              {values.isAdded && 
+                <CheckCircleIcon
+                  className={classes.icon}
+                  color="secondary"
+                />}
+            </Grid>
+          </Grid>
         </CardActions>
       </form>
     </Card>
