@@ -57,11 +57,14 @@ const GetEmployee = props => {
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_EMPLOYEES_API_KEY,
+      'x-api-key': process.env.REACT_APP_EMPLOYEE_API_KEY
     }
-  }
+  };
 
-  const { get, response, loading, error } = useFetch(process.env.REACT_APP_API_URL, options)
+  const { get, response, loading, error } = useFetch(
+    process.env.REACT_APP_EMPLOYEE_API_URL,
+    options
+  );
 
   const handleChange = event => {
     setValues({
@@ -73,14 +76,20 @@ const GetEmployee = props => {
   };
 
   const handleSubmit = async event => {
-    event.preventDefault()
-    const result = await get(`/employee/${values.uid}/department/${values.department}`)
+    event.preventDefault();
+    const result = await get(
+      `/employee/${values.uid}/department/${values.department}`
+    );
     if (response.ok) {
       if (result.Count === 0) {
         setValues({ ...values, info: null, isRetrieved: true });
       }
       if (result.Count === 1) {
-        setValues({ ...values, info: { ...result.Items[0].info }, isRetrieved: true })
+        setValues({
+          ...values,
+          info: { ...result.Items[0].info },
+          isRetrieved: true
+        });
       }
     }
   };
@@ -121,8 +130,7 @@ const GetEmployee = props => {
             value={values.department}
             variant="outlined"
           />
-          {values.isRetrieved && 
-          values.info && 
+          {values.isRetrieved && values.info && (
             <div>
               <TableContainer component={Paper}>
                 <Table
@@ -158,9 +166,11 @@ const GetEmployee = props => {
               <MuiTypography
                 className={classes.tableFooter}
                 variant="caption"
-              >Recently updated records may be cached.</MuiTypography>
+              >
+                Recently updated records may be cached.
+              </MuiTypography>
             </div>
-          }
+          )}
         </CardContent>
         <Divider />
         <CardActions>
@@ -188,18 +198,18 @@ const GetEmployee = props => {
                   color="secondary"
                   size={30}
                 />}
-              {values.isRetrieved && 
-                !values.info &&
+              {values.isRetrieved && !values.info && (
                 <CancelIcon
                   className={classes.icon}
                   color="secondary"
-                />}
-              {values.isRetrieved && 
-              values.info && 
+                />
+              )}
+              {values.isRetrieved && values.info && (
                 <CheckCircleIcon
                   className={classes.icon}
                   color="secondary"
-                />}
+                />
+              )}
             </Grid>
           </Grid>
         </CardActions>

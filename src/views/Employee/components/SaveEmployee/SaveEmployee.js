@@ -44,7 +44,7 @@ const SaveEmployee = props => {
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_EMPLOYEES_API_KEY
+      'x-api-key': process.env.REACT_APP_EMPLOYEE_API_KEY
     },
   };
   
@@ -55,7 +55,7 @@ const SaveEmployee = props => {
   }
 
   const { post, response, loading, error } = useFetch(
-    process.env.REACT_APP_API_URL,
+    process.env.REACT_APP_EMPLOYEE_API_URL,
     options
   );
 
