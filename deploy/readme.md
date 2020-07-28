@@ -2,7 +2,7 @@
 
 This project creates a basic infrastructure for a static site to be hosted in S3 and delivered via CloudFront.
 
-Modified from Kristi Kristo's post, [Deployment of React.JS, using AWS S3, CircleCI and Terraform.](https://medium.com/softup-technologies/deployment-of-react-js-using-aws-s3-circleci-and-terraform-e75961c0df86)
+Modified from Rangle.io's post, [Hosting a Frontend Application in AWS with Terraform](https://rangle.io/blog/frontend-app-in-aws-with-terraform/)
 
 ## Requirements
 
