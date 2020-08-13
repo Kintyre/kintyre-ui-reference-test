@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   # Route53 requires Alias/CNAME to be setup
-  aliases = ["${var.s3_bucket_name}.${var.domain}"]
+  aliases = ["${var.s3_bucket_name}.${var.domainnp}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]

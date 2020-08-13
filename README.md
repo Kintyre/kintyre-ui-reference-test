@@ -56,7 +56,9 @@ npm start
 
 Then open <http://localhost:3000> in a browser.
 
-### Run it remotely
+### Host it remotely
+
+### FYI: The Terraform scripts in the [Kintyre Runway Infrastructure](https://github.com/Kintyre/kintyre-runway-infrastructure) repo will obviate this manual build process.
 
 Run the build script to create a build directory:
 
@@ -65,51 +67,6 @@ npm run build
 ```
 
 Note: this will consume `.env.production`.
-
-<!-- WIP --
-### Deploy via Terraform
-
-#### Terraform Frontend Infrastructure Template
-
-This project creates a basic infrastructure for a static site to be hosted in S3 and delivered via CloudFront.
-
-Modified from Kristi Kristo's post, [Deployment of React.JS, using AWS S3, CircleCI and Terraform.](https://medium.com/softup-technologies/deployment-of-react-js-using-aws-s3-circleci-and-terraform-e75961c0df86)
-
-##### Requirements
-
-1. a `deploy/terraform.tfvars` with the values to:
-
-```bash
-project_key         = "kintyre-reference-app-deployment"
-aws_region          = "us-east-1"
-s3_bucket_name      = "kintyre-reference-app-deployment"
-s3_bucket_env       = "development"
-domain              = "dev.kintyre.net"
-subdomain           = "reference-app"
-hosted_zone         = "reference-app.dev.kintyre.net"
-```
-
-#### Getting Started
-
-1. run `deploy/terraform init`
-2. run `deploy/terraform plan -var aws_profile=XXX` and review the plan
-3. run `deploy/terraform apply -var aws_profile=XXX`
-
-#### Teardown
-
-1. delete the `build` directory
-2. run `terraform destroy -var aws_profile=XXX`
-
-#### SCRIPT
-
-a simple deploy.sh script will:
-
-1. run `npm build`
-2. run `deploy/terraform init`
-3. run `deploy/terraform plan -var aws_profile=XXX` and review the plan
-4. run `deploy/terraform apply -var aws_profile=XXX`
-5. run `aws s3 sync build <s3 bucket name from terraform output> --profile=XXX`
--->
 
 For this example, I am using:
 
@@ -137,7 +94,7 @@ aws s3 sync build s3://kintyre-web-ui-reference-new --acl public-read --profile=
 
 Take note of the bucket public URL. It will be something like: <http://kintyre-web-ui-reference-new.s3-website-us-east-1.amazonaws.com>
 
-Note: the Codeship project will also deploy the app with every push to master.
+### Note: the Codeship project will also deploy the app with every push to master.
 
 ## CONTRIBUTION
 
