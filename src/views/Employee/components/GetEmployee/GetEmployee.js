@@ -26,7 +26,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import useFetch from 'use-http';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(2),
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const GetEmployee = props => {
+const GetEmployee = (props) => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -57,16 +57,16 @@ const GetEmployee = props => {
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_EMPLOYEE_API_KEY
+      'x-api-key': process.env.REACT_APP_API_KEY
     }
   };
 
   const { get, response, loading, error } = useFetch(
-    process.env.REACT_APP_EMPLOYEE_API_URL,
+    process.env.REACT_APP_API_URL,
     options
   );
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValues({
       ...values,
       info: null,
@@ -75,7 +75,7 @@ const GetEmployee = props => {
     });
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await get(
       `/employee/${values.uid}/department/${values.department}`
@@ -95,10 +95,7 @@ const GetEmployee = props => {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <form onSubmit={handleSubmit}>
         <CardHeader
           subheader="src/views/Employee/components/GetEmployee/GetEmployee.js"
@@ -133,10 +130,7 @@ const GetEmployee = props => {
           {values.isRetrieved && values.info && (
             <div>
               <TableContainer component={Paper}>
-                <Table
-                  aria-label="simple table"
-                  className={classes.table}
-                >
+                <Table aria-label="simple table" className={classes.table}>
                   <TableHead>
                     <TableRow>
                       <TableCell>Key</TableCell>
@@ -150,8 +144,7 @@ const GetEmployee = props => {
                           <TableCell
                             component="th"
                             key={`cellKey-${index}`}
-                            scope="row"
-                          >
+                            scope="row">
                             {key}
                           </TableCell>
                           <TableCell align="right">
@@ -163,10 +156,7 @@ const GetEmployee = props => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <MuiTypography
-                className={classes.tableFooter}
-                variant="caption"
-              >
+              <MuiTypography className={classes.tableFooter} variant="caption">
                 Recently updated records may be cached.
               </MuiTypography>
             </div>
@@ -174,41 +164,20 @@ const GetEmployee = props => {
         </CardContent>
         <Divider />
         <CardActions>
-          <Grid
-            container
-            justify="space-between"
-          >
+          <Grid container justify="space-between">
             <Grid item>
-              <Button
-                color="primary"
-                type="submit"
-                variant="contained"
-              >
+              <Button color="primary" type="submit" variant="contained">
                 get
               </Button>
             </Grid>
             <Grid item>
-              {error && 
-                <ErrorIcon
-                  className={classes.icon}
-                  color="error"
-                />}
-              {loading && 
-                <CircularProgress
-                  color="secondary"
-                  size={30}
-                />}
+              {error && <ErrorIcon className={classes.icon} color="error" />}
+              {loading && <CircularProgress color="secondary" size={30} />}
               {values.isRetrieved && !values.info && (
-                <CancelIcon
-                  className={classes.icon}
-                  color="secondary"
-                />
+                <CancelIcon className={classes.icon} color="secondary" />
               )}
               {values.isRetrieved && values.info && (
-                <CheckCircleIcon
-                  className={classes.icon}
-                  color="secondary"
-                />
+                <CheckCircleIcon className={classes.icon} color="secondary" />
               )}
             </Grid>
           </Grid>

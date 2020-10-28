@@ -18,9 +18,11 @@ import ErrorIcon from '@material-ui/icons/Error';
 import useFetch from 'use-http';
 
 const useStyles = makeStyles((theme) => ({
-  root: {'& .MuiTextField-root': {
-    margin: theme.spacing(2),
-    width: 230,}
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(2),
+      width: 230
+    }
   },
   icon: {
     height: 28,
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DeleteEmployee = props => {
+const DeleteEmployee = (props) => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -42,21 +44,21 @@ const DeleteEmployee = props => {
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_EMPLOYEE_API_KEY
-    },
+      'x-api-key': process.env.REACT_APP_API_KEY
+    }
   };
-  
-  const body = { 
+
+  const body = {
     uid: values.uid,
-    department: values.department,
-  }
+    department: values.department
+  };
 
   const { del, response, loading, error } = useFetch(
-    process.env.REACT_APP_EMPLOYEE_API_URL,
+    process.env.REACT_APP_API_URL,
     options
   );
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValues({
       ...values,
       isDeleted: false,
@@ -64,7 +66,7 @@ const DeleteEmployee = props => {
     });
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     await del('/employee', body);
     if (response.ok) {
@@ -77,10 +79,7 @@ const DeleteEmployee = props => {
   };
 
   return (
-    <Card 
-      {...rest} 
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <form onSubmit={handleSubmit}>
         <CardHeader
           subheader="src/views/Employee/components/DeleteEmployee/DeleteEmployee.js"
@@ -114,35 +113,18 @@ const DeleteEmployee = props => {
           />
         </CardContent>
         <CardActions>
-          <Grid
-            container
-            justify="space-between"
-          >
+          <Grid container justify="space-between">
             <Grid item>
-              <Button
-                color="primary"
-                type="submit"
-                variant="outlined"
-              >
+              <Button color="primary" type="submit" variant="outlined">
                 delete
               </Button>
             </Grid>
             <Grid item>
-              {error && 
-                <ErrorIcon
-                  className={classes.icon}
-                  color="error"
-                />}
-              {loading && 
-                <CircularProgress
-                  color="secondary"
-                  size={30}
-                />}
-              {values.isDeleted &&
-                <CheckCircleIcon
-                  className={classes.icon}
-                  color="secondary"
-                />}
+              {error && <ErrorIcon className={classes.icon} color="error" />}
+              {loading && <CircularProgress color="secondary" size={30} />}
+              {values.isDeleted && (
+                <CheckCircleIcon className={classes.icon} color="secondary" />
+              )}
             </Grid>
           </Grid>
         </CardActions>

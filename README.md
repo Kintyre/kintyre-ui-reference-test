@@ -38,10 +38,10 @@ Add the variables to the .env files like this:
 
 ```bash
 # API
-REACT_APP_EMPLOYEE_API_URL="XXX"
+REACT_APP_API_URL="XXX"
 
 # KEYS
-REACT_APP_EMPLOYEE_API_KEY="XXX"
+REACT_APP_API_KEY="XXX"
 ```
 
 ## DEPLOYMENT
