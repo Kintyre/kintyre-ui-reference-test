@@ -103,3 +103,7 @@ Refer to the [Material-UI docs](https://material-ui.com/getting-started/installa
 You can also refer to the [Devias Kit live preview](https://material-ui.com/store/previews/devias-kit/).
 
 This project uses [React Testing Library](https://testing-library.com/docs/react-testing-library/intro).
+
+## Feature Backlog
+
+1. Integration testing
