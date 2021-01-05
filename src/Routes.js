@@ -1,37 +1,30 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import DashboardLayout from 'src/layouts/DashboardLayout';
+import MainLayout from 'src/layouts/MainLayout';
+import DashboardView from 'src/views/reports/DashboardView';
+import EmployeeView from 'src/views/employee/EmployeeView';
+import NotFoundView from 'src/views/errors/NotFoundView';
 
-import { RouteWithLayout } from './components';
-import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
+const routes = [
+  {
+    path: 'app',
+    element: <DashboardLayout />,
+    children: [
+      { path: 'employees', element: <EmployeeView /> },
+      { path: 'dashboard', element: <DashboardView /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      { path: '404', element: <NotFoundView /> },
+      { path: '/', element: <Navigate to="/app/dashboard" /> },
+      { path: '*', element: <Navigate to="/404" /> }
+    ]
+  }
+];
 
-import {
-  Employee as EmployeeView,
-  NotFound as NotFoundView
-} from './views';
-
-const Routes = () => {
-  return (
-    <Switch>
-      <Redirect
-        exact
-        from="/"
-        to="/employee"
-      />
-      <RouteWithLayout
-        component={EmployeeView}
-        exact
-        layout={MainLayout}
-        path="/employee"
-      />
-      <RouteWithLayout
-        component={NotFoundView}
-        exact
-        layout={MinimalLayout}
-        path="/not-found"
-      />
-      <Redirect to="/not-found" />
-    </Switch>
-  );
-};
-
-export default Routes;
+export default routes;
