@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Card,
@@ -12,14 +12,14 @@ import {
   Divider,
   Grid,
   TextField
-} from '@material-ui/core';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import useFetch from 'use-http';
+} from "@material-ui/core";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ErrorIcon from "@material-ui/icons/Error";
+import useFetch from "use-http";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(2),
       width: 230
     }
@@ -31,20 +31,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DeleteEmployee = (props) => {
+const DeleteEmployee = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    uid: '',
-    department: '',
+    uid: "",
+    department: "",
     isDeleted: false
   });
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_API_KEY
+      "x-api-key": process.env.REACT_APP_API_KEY
     }
   };
 
@@ -58,7 +58,7 @@ const DeleteEmployee = (props) => {
     options
   );
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setValues({
       ...values,
       isDeleted: false,
@@ -66,13 +66,13 @@ const DeleteEmployee = (props) => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    await del('/employee', body);
+    await del("/employee", body);
     if (response.ok) {
       setValues({
-        uid: '',
-        department: '',
+        uid: "",
+        department: "",
         isDeleted: true
       });
     }

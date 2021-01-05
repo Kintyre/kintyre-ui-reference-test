@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Card,
@@ -12,15 +12,15 @@ import {
   Divider,
   Grid,
   TextField
-} from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import useFetch from 'use-http';
+} from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ErrorIcon from "@material-ui/icons/Error";
+import useFetch from "use-http";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(2),
       width: 230
     }
@@ -32,27 +32,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UpdateEmployee = (props) => {
+const UpdateEmployee = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    uid: '',
-    department: '',
+    uid: "",
+    department: "",
     info: null,
     isRetrieved: false
   });
 
   const [info, setInfo] = useState({
-    infoKey: '',
-    infoValue: '',
+    infoKey: "",
+    infoValue: "",
     isUpdated: false
   });
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_API_KEY
+      "x-api-key": process.env.REACT_APP_API_KEY
     }
   };
 
@@ -67,7 +67,7 @@ const UpdateEmployee = (props) => {
     options
   );
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setValues({
       ...values,
       info: null,
@@ -77,7 +77,7 @@ const UpdateEmployee = (props) => {
     });
   };
 
-  const handleChangeInfo = (event) => {
+  const handleChangeInfo = event => {
     setInfo({
       ...info,
       isUpdated: false,
@@ -85,7 +85,7 @@ const UpdateEmployee = (props) => {
     });
   };
 
-  const handleRetrieve = async (event) => {
+  const handleRetrieve = async event => {
     event.preventDefault();
     const request = await get(
       `/employee/${values.uid}/department/${values.department}`
@@ -108,13 +108,13 @@ const UpdateEmployee = (props) => {
     }
   };
 
-  const handleUpdate = async (event) => {
+  const handleUpdate = async event => {
     event.preventDefault();
-    await put('/employee', body);
+    await put("/employee", body);
     if (response.ok) {
       setInfo({
-        infoKey: '',
-        infoValue: '',
+        infoKey: "",
+        infoValue: "",
         isUpdated: true
       });
     }

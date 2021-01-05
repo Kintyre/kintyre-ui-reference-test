@@ -1,7 +1,0 @@
-project_key         = "kintyre-reference-app-deployment"
-aws_region          = "us-east-1"
-s3_bucket_name      = "kintyre-reference-app-deployment"
-s3_bucket_env       = "development"
-domain              = "dev.kintyre.net"
-subdomain           = "reference-app"
-hosted_zone         = "reference-app.dev.kintyre.net"

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Card,
@@ -20,15 +20,15 @@ import {
   TableRow,
   TextField,
   Typography as MuiTypography
-} from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import useFetch from 'use-http';
+} from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ErrorIcon from "@material-ui/icons/Error";
+import useFetch from "use-http";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(2),
       width: 230
     }
@@ -43,21 +43,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const GetEmployee = (props) => {
+const GetEmployee = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    uid: '',
-    department: '',
+    uid: "",
+    department: "",
     info: null,
     isRetrieved: false
   });
 
   const options = {
     headers: {
-      'x-api-key': process.env.REACT_APP_API_KEY
+      "x-api-key": process.env.REACT_APP_API_KEY
     }
   };
 
@@ -66,7 +66,7 @@ const GetEmployee = (props) => {
     options
   );
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setValues({
       ...values,
       info: null,
@@ -75,7 +75,7 @@ const GetEmployee = (props) => {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const result = await get(
       `/employee/${values.uid}/department/${values.department}`
@@ -144,7 +144,8 @@ const GetEmployee = (props) => {
                           <TableCell
                             component="th"
                             key={`cellKey-${index}`}
-                            scope="row">
+                            scope="row"
+                          >
                             {key}
                           </TableCell>
                           <TableCell align="right">

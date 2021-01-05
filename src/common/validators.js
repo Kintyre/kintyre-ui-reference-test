@@ -1,9 +1,11 @@
 const checked = (value, options) => {
   if (value !== true) {
-    return options.message || 'must be checked';
+    return options.message || "must be checked";
   }
 };
 
-export default {
+const validators = {
   checked
 };
+
+export default validators;
