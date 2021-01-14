@@ -85,7 +85,7 @@ const SaveEmployee = (props) => {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-test="save-employee-form">
         <CardHeader title="Save Employee" />
         <Divider />
         <CardContent>
@@ -100,6 +100,7 @@ const SaveEmployee = (props) => {
             type="text"
             value={values.uid}
             variant="outlined"
+            data-test="save-employee-input"
           />
           <TextField
             fullWidth
@@ -112,6 +113,7 @@ const SaveEmployee = (props) => {
             type="text"
             value={values.department}
             variant="outlined"
+            data-test="save-employee-input"
           />
           {values.uid && values.department && (
             <div>
@@ -126,6 +128,7 @@ const SaveEmployee = (props) => {
                 size="small"
                 value={values.infoKey}
                 variant="outlined"
+                data-test="save-employee-input"
               />
               <TextField
                 id="outlined-required"
@@ -136,6 +139,7 @@ const SaveEmployee = (props) => {
                 size="small"
                 value={values.infoValue}
                 variant="outlined"
+                data-test="save-employee-input"
               />
             </div>
           )}
@@ -144,7 +148,7 @@ const SaveEmployee = (props) => {
         <CardActions>
           <Grid container justify="space-between">
             <Grid item>
-              <Button color="primary" type="submit" variant="contained">
+              <Button color="primary" type="submit" variant="contained" data-test="save-employee-save-button">
                 save
               </Button>
             </Grid>

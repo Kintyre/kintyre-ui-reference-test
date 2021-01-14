@@ -122,7 +122,7 @@ const UpdateEmployee = (props) => {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <form onSubmit={handleRetrieve}>
+      <form onSubmit={handleRetrieve} data-test="update-employee-form">
         <CardHeader title="Update Employee" />
         <Divider />
         <CardContent>
@@ -137,6 +137,7 @@ const UpdateEmployee = (props) => {
             type="text"
             value={values.uid}
             variant="outlined"
+            data-test="update-employee-input"
           />
           <TextField
             fullWidth
@@ -149,13 +150,14 @@ const UpdateEmployee = (props) => {
             type="text"
             value={values.department}
             variant="outlined"
+            data-test="update-employee-input"
           />
         </CardContent>
         <Divider />
         <CardActions>
           <Grid container justify="space-between">
             <Grid item>
-              <Button color="primary" type="submit" variant="contained">
+              <Button color="primary" type="submit" variant="contained" data-test="update-employee-get-button">
                 get
               </Button>
             </Grid>
@@ -188,6 +190,7 @@ const UpdateEmployee = (props) => {
               type="text"
               value={info.infoKey}
               variant="outlined"
+              data-test="update-employee-input"
             />
             <TextField
               fullWidth
@@ -199,13 +202,14 @@ const UpdateEmployee = (props) => {
               type="text"
               value={info.infoValue}
               variant="outlined"
+              data-test="update-employee-input"
             />
           </CardContent>
           <Divider />
           <CardActions>
             <Grid container justify="space-between">
               <Grid item>
-                <Button color="primary" type="submit" variant="contained">
+                <Button color="primary" type="submit" variant="contained" data-test="update-employee-update-button">
                   update
                 </Button>
               </Grid>

@@ -96,7 +96,7 @@ const GetEmployee = (props) => {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-test="get-employee-form">
         <CardHeader title="Get Employee" />
         <Divider />
         <CardContent>
@@ -111,6 +111,7 @@ const GetEmployee = (props) => {
             type="text"
             value={values.uid}
             variant="outlined"
+            data-test="get-employee-input"
           />
           <TextField
             fullWidth
@@ -123,6 +124,7 @@ const GetEmployee = (props) => {
             type="text"
             value={values.department}
             variant="outlined"
+            data-test="get-employee-input"
           />
           {values.isRetrieved && values.info && (
             <div>
@@ -164,7 +166,7 @@ const GetEmployee = (props) => {
         <CardActions>
           <Grid container justify="space-between">
             <Grid item>
-              <Button color="primary" type="submit" variant="contained">
+              <Button color="primary" type="submit" variant="contained" data-test="get-employee-get-button">
                 get
               </Button>
             </Grid>

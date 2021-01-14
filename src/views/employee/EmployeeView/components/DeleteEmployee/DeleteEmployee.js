@@ -80,7 +80,7 @@ const DeleteEmployee = props => {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-test="delete-employee-form">
         <CardHeader title="Delete Employee" />
         <Divider />
         <CardContent>
@@ -95,6 +95,7 @@ const DeleteEmployee = props => {
             type="text"
             value={values.uid}
             variant="outlined"
+            data-test="delete-employee-input"
           />
           <TextField
             fullWidth
@@ -107,12 +108,13 @@ const DeleteEmployee = props => {
             type="text"
             value={values.department}
             variant="outlined"
+            data-test="delete-employee-input"
           />
         </CardContent>
         <CardActions>
           <Grid container justify="space-between">
             <Grid item>
-              <Button color="primary" type="submit" variant="outlined">
+              <Button color="primary" type="submit" variant="outlined" data-test="delete-employee-delete-button">
                 delete
               </Button>
             </Grid>
