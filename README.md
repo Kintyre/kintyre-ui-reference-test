@@ -5,7 +5,7 @@
 This repository comprises a client ui to accompany [Kintyre's reference API](https://github.com/Kintyre/kintyre_api_reference).
 
 ## REQUIREMENTS
-
+        
 - [Node > v12 (and NPM > v6)](https://nodejs.org/en/download/)
 
 - access to an AWS account, an AWS profile, and the AWS CLI
